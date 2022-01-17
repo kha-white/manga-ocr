@@ -1,8 +1,10 @@
 fire
+fugashi
 jaconv
 loguru
 numpy
 Pillow
 pyperclip
-torch
+torch>=1.0
 transformers>=4.12.5
+unidic_lite

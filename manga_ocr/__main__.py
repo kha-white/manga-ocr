@@ -92,5 +92,9 @@ def run(
             time.sleep(delay_secs)
 
 
-if __name__ == '__main__':
+def main():
     fire.Fire(run)
+
+
+if __name__ == '__main__':
+    main()
