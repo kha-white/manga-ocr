@@ -1,0 +1,8 @@
+fire
+jaconv
+loguru
+numpy
+Pillow
+pyperclip
+torch
+transformers>=4.12.5
