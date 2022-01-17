@@ -89,7 +89,7 @@ def run(
                     else:
                         process_and_write_results(mocr, img, write_to)
 
-            time.sleep(0.5)
+            time.sleep(delay_secs)
 
 
 if __name__ == '__main__':
