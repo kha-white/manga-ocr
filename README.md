@@ -72,6 +72,10 @@ https://user-images.githubusercontent.com/22717958/150238361-052b95d1-0152-485f-
     ```commandline
     manga_ocr "/path/to/sharex/screenshot/folder"
     ```
+
+When running for the first time, downloading the model (~400 MB) might take a few minutes.
+The OCR is ready to use after `OCR ready` message appears in the logs.
+
 - To see other options, run in command line:
     ```commandline
     manga_ocr --help
@@ -80,6 +84,7 @@ https://user-images.githubusercontent.com/22717958/150238361-052b95d1-0152-485f-
 If `manga_ocr` doesn't work, you might also try replacing it with `python -m manga_ocr`.
 
 ## Usage tips
+
 - OCR supports multi-line text, but the longer the text, the more likely some errors are to occur.
   If the recognition failed for some part of a longer text, you might try to run it on a smaller portion of the image.
 - The model was trained specifically to handle manga well, but should do a decent job on other types of printed text,
@@ -107,8 +112,6 @@ Here are some cherry-picked examples showing the capability of the model.
 | ![](examples/09.jpg) | 少し黙っている |
 | ![](examples/10.jpg) | わかるかな〜？ |
 | ![](examples/11.jpg) | 警察にも先生にも町中の人達に！！ |
-
-
 
 
 # Acknowledgments
