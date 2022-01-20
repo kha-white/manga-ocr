@@ -2,7 +2,6 @@ import time
 from pathlib import Path
 
 import PIL.Image
-import PIL.ImageGrab
 import fire
 import numpy as np
 import pyperclip
@@ -59,6 +58,7 @@ def run(read_from='clipboard',
     mocr = MangaOcr(pretrained_model_name_or_path, force_cpu)
 
     if read_from == 'clipboard':
+        import PIL.ImageGrab
         logger.info('Reading from clipboard')
 
         img = None
