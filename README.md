@@ -21,10 +21,10 @@ You need Python 3.6+.
 If you want to run with GPU, install PyTorch as described [here](https://pytorch.org/get-started/locally/#start-locally),
 otherwise this step can be skipped.
 
-Run:
+Run in command line:
 
 ```commandline
-pip install manga-ocr
+pip3 install manga-ocr
 ```
 
 # Usage
@@ -64,15 +64,15 @@ capture region with ShareX -> write image to clipboard -> Manga OCR -> write tex
 
 https://user-images.githubusercontent.com/22717958/150238361-052b95d1-0152-485f-a441-48a957536239.mp4
 
-- To read images from clipboard and write recognized texts to clipboard, run:
+- To read images from clipboard and write recognized texts to clipboard, run in command line:
     ```commandline
     manga_ocr
     ```
-- To read images from ShareX's screenshot folder, run:
+- To read images from ShareX's screenshot folder, run in command line:
     ```commandline
     manga_ocr "/path/to/sharex/screenshot/folder"
     ```
-- To see other options, run:
+- To see other options, run in command line:
     ```commandline
     manga_ocr --help
     ```
