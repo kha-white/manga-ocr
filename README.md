@@ -14,6 +14,8 @@ text recognition, robust against various scenarios specific to manga:
 Unlike many OCR models, Manga OCR supports recognizing multi-line text in a single forward pass,
 so that text bubbles found in manga can be processed at once, without splitting them into lines.
 
+Code for training and synthetic data generation will be released soon.
+
 # Installation
 
 You need Python 3.6+.
@@ -57,6 +59,7 @@ Manga OCR can run in the background and process new images as they appear.
 You might use a tool like [ShareX](https://getsharex.com/) to manually capture a region of the screen and let the
 OCR read it either from the system clipboard, or a specified directory. By default, Manga OCR will write recognized text to clipboard,
 from which it can be read by a dictionary like [Yomichan](https://github.com/FooSoft/yomichan).
+Reading images from clipboard works only on Windows and macOS, on Linux you should read from a directory instead.
 
 Your full setup for reading manga in Japanese with a dictionary might look like this:
 
