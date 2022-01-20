@@ -29,30 +29,6 @@ pip install manga-ocr
 
 # Usage
 
-## Running in the background
-
-Manga OCR can run in the background, processing new images as they appear.
-
-You might then use a tool like [ShareX](https://getsharex.com/) to manually capture a region of the screen and let the
-OCR read it either from the system clipboard, or a specified directory.
-
-For example:
-
-- To read images from clipboard and write recognized texts to clipboard, run:
-    ```commandline
-    manga_ocr
-    ```
-- To read images from ShareX's screenshot folder, run:
-    ```commandline
-    manga_ocr "/path/to/sharex/screenshot/folder"
-    ```
-- To see other options, run:
-    ```commandline
-    manga_ocr --help
-    ```
-
-If `manga_ocr` doesn't work, you might also try replacing it with `python -m manga_ocr`.
-
 ## Python API
 
 ```python
@@ -73,6 +49,35 @@ mocr = MangaOcr()
 img = PIL.Image.open('/path/to/img')
 text = mocr(img)
 ```
+
+## Running in the background
+
+Manga OCR can run in the background and process new images as they appear.
+
+You might use a tool like [ShareX](https://getsharex.com/) to manually capture a region of the screen and let the
+OCR read it either from the system clipboard, or a specified directory. By default, Manga OCR will write recognized text to clipboard,
+from which it can be read by a dictionary like [Yomichan](https://github.com/FooSoft/yomichan).
+
+Your full setup for reading manga in Japanese with a dictionary might look like this:
+
+capture region with ShareX -> write image to clipboard -> Manga OCR -> write text to clipboard -> Yomichan
+
+https://user-images.githubusercontent.com/22717958/150238361-052b95d1-0152-485f-a441-48a957536239.mp4
+
+- To read images from clipboard and write recognized texts to clipboard, run:
+    ```commandline
+    manga_ocr
+    ```
+- To read images from ShareX's screenshot folder, run:
+    ```commandline
+    manga_ocr "/path/to/sharex/screenshot/folder"
+    ```
+- To see other options, run:
+    ```commandline
+    manga_ocr --help
+    ```
+
+If `manga_ocr` doesn't work, you might also try replacing it with `python -m manga_ocr`.
 
 ## Usage tips
 - OCR supports multi-line text, but the longer the text, the more likely some errors are to occur.
