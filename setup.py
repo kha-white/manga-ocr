@@ -5,7 +5,7 @@ long_description = (Path(__file__).parent / "README.md").read_text('utf-8').spli
 
 setup(
     name="manga-ocr",
-    version='0.1.2',
+    version='0.1.3',
     description="OCR for Japanese manga",
     long_description=long_description,
     long_description_content_type="text/markdown",
