@@ -1,10 +1,11 @@
 import time
 from pathlib import Path
 
-import PIL.Image
 import fire
 import numpy as np
 import pyperclip
+from PIL import Image
+from PIL import UnidentifiedImageError
 from loguru import logger
 
 from manga_ocr import MangaOcr
@@ -58,7 +59,7 @@ def run(read_from='clipboard',
     mocr = MangaOcr(pretrained_model_name_or_path, force_cpu)
 
     if read_from == 'clipboard':
-        import PIL.ImageGrab
+        from PIL import ImageGrab
         logger.info('Reading from clipboard')
 
         img = None
@@ -66,11 +67,11 @@ def run(read_from='clipboard',
             old_img = img
 
             try:
-                img = PIL.ImageGrab.grabclipboard()
+                img = ImageGrab.grabclipboard()
             except OSError:
                 logger.warning('Error while reading from clipboard')
             else:
-                if isinstance(img, PIL.Image.Image) and not are_images_identical(img, old_img):
+                if isinstance(img, Image.Image) and not are_images_identical(img, old_img):
                     process_and_write_results(mocr, img, write_to)
 
             time.sleep(delay_secs)
@@ -93,8 +94,8 @@ def run(read_from='clipboard',
                     old_paths.add(path)
 
                     try:
-                        img = PIL.Image.open(path)
-                    except PIL.UnidentifiedImageError:
+                        img = Image.open(path)
+                    except UnidentifiedImageError:
                         logger.warning(f'Error while reading file {path}')
                     else:
                         process_and_write_results(mocr, img, write_to)
