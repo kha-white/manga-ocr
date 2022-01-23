@@ -1,3 +1,4 @@
+import sys
 import time
 from pathlib import Path
 
@@ -39,6 +40,10 @@ def process_and_write_results(mocr, img_or_path, write_to):
             f.write(text + '\n')
 
 
+def get_path_key(path):
+    return path, path.lstat().st_mtime
+
+
 def run(read_from='clipboard',
         write_to='clipboard',
         pretrained_model_name_or_path='kha-white/manga-ocr-base',
@@ -59,6 +64,12 @@ def run(read_from='clipboard',
     mocr = MangaOcr(pretrained_model_name_or_path, force_cpu)
 
     if read_from == 'clipboard':
+
+        if sys.platform not in ('darwin', 'win32'):
+            msg = 'Reading images from clipboard works only on macOS and Windows. ' \
+                  'On Linux, run "manga_ocr /path/to/screenshot/folder" to read images from a folder instead.'
+            raise NotImplementedError(msg)
+
         from PIL import ImageGrab
         logger.info('Reading from clipboard')
 
@@ -86,12 +97,13 @@ def run(read_from='clipboard',
 
         old_paths = set()
         for path in read_from.iterdir():
-            old_paths.add(path)
+            old_paths.add(get_path_key(path))
 
         while True:
             for path in read_from.iterdir():
-                if path not in old_paths:
-                    old_paths.add(path)
+                path_key = get_path_key(path)
+                if path_key not in old_paths:
+                    old_paths.add(path_key)
 
                     try:
                         img = Image.open(path)
