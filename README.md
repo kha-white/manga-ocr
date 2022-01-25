@@ -18,7 +18,7 @@ Code for training and synthetic data generation will be released soon.
 
 # Installation
 
-You need Python 3.6+.
+You need Python 3.6, 3.7, 3.8 or 3.9. Unfortunately, PyTorch does not support Python 3.10 yet.
 
 If you want to run with GPU, install PyTorch as described [here](https://pytorch.org/get-started/locally/#start-locally),
 otherwise this step can be skipped.
