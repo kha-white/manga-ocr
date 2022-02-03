@@ -20,6 +20,10 @@ Code for training and synthetic data generation will be released soon.
 
 You need Python 3.6, 3.7, 3.8 or 3.9. Unfortunately, PyTorch does not support Python 3.10 yet.
 
+Some users have reported problems with Python installed from Microsoft Store. If you see an error:
+`ImportError: DLL load failed while importing fugashi: The specified module could not be found.`,
+try installing Python from the [official site](https://www.python.org/downloads).
+
 If you want to run with GPU, install PyTorch as described [here](https://pytorch.org/get-started/locally/#start-locally),
 otherwise this step can be skipped.
 
@@ -75,6 +79,9 @@ https://user-images.githubusercontent.com/22717958/150238361-052b95d1-0152-485f-
     ```commandline
     manga_ocr "/path/to/sharex/screenshot/folder"
     ```
+Note that when running in the clipboard scanning mode, any image that you copy to clipboard will be processed by OCR and replaced
+by recognized text. If you want to be able to copy and paste images as usual, you should use the folder scanning mode instead
+and define a separate task in ShareX just for OCR, which saves screenshots to some folder without copying them to clipboard.
 
 When running for the first time, downloading the model (~400 MB) might take a few minutes.
 The OCR is ready to use after `OCR ready` message appears in the logs.
