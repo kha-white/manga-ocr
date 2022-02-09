@@ -9,7 +9,7 @@ setup(
     description="OCR for Japanese manga",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/kha-white/manga_ocr",
+    url="https://github.com/kha-white/manga-ocr",
     author="Maciej Budyś",
     author_email="kha-white@mail.com",
     license="Apache License 2.0",
