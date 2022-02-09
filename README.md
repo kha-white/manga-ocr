@@ -125,6 +125,8 @@ Here are some cherry-picked examples showing the capability of the model.
 | ![](assets/examples/10.jpg) | わかるかな〜？ |
 | ![](assets/examples/11.jpg) | 警察にも先生にも町中の人達に！！ |
 
+# Contact
+For any inquiries, please feel free to contact me at kha-white@mail.com
 
 # Acknowledgments
 
