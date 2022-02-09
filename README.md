@@ -14,7 +14,9 @@ text recognition, robust against various scenarios specific to manga:
 Unlike many OCR models, Manga OCR supports recognizing multi-line text in a single forward pass,
 so that text bubbles found in manga can be processed at once, without splitting them into lines.
 
-Code for training and synthetic data generation will be released soon.
+See also:
+- Development code, including code for training and synthetic data generation: [link](manga_ocr_dev)
+- Description of synthetic data generation pipeline + examples of generated images: [link](manga_ocr_dev/synthetic_data_generator)
 
 # Installation
 
