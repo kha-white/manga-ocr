@@ -110,20 +110,22 @@ Here are some cherry-picked examples showing the capability of the model.
 
 | image                | Manga OCR result |
 |----------------------|------------------|
-| ![](examples/00.jpg) | 素直にあやまるしか |
-| ![](examples/01.jpg) | 立川で見た〝穴〟の下の巨大な眼は： |
-| ![](examples/02.jpg) | 実戦剣術も一流です |
-| ![](examples/03.jpg) | 第３０話重苦しい闇の奥で静かに呼吸づきながら |
-| ![](examples/04.jpg) | よかったじゃないわよ！何逃げてるのよ！！早くあいつを退治してよ！ |
-| ![](examples/05.jpg) | ぎゃっ |
-| ![](examples/06.jpg) | ピンポーーン |
-| ![](examples/07.jpg) | ＬＩＮＫ！私達７人の力でガノンの塔の結界をやぶります |
-| ![](examples/08.jpg) | ファイアパンチ |
-| ![](examples/09.jpg) | 少し黙っている |
-| ![](examples/10.jpg) | わかるかな〜？ |
-| ![](examples/11.jpg) | 警察にも先生にも町中の人達に！！ |
+| ![](assets/examples/00.jpg) | 素直にあやまるしか |
+| ![](assets/examples/01.jpg) | 立川で見た〝穴〟の下の巨大な眼は： |
+| ![](assets/examples/02.jpg) | 実戦剣術も一流です |
+| ![](assets/examples/03.jpg) | 第３０話重苦しい闇の奥で静かに呼吸づきながら |
+| ![](assets/examples/04.jpg) | よかったじゃないわよ！何逃げてるのよ！！早くあいつを退治してよ！ |
+| ![](assets/examples/05.jpg) | ぎゃっ |
+| ![](assets/examples/06.jpg) | ピンポーーン |
+| ![](assets/examples/07.jpg) | ＬＩＮＫ！私達７人の力でガノンの塔の結界をやぶります |
+| ![](assets/examples/08.jpg) | ファイアパンチ |
+| ![](assets/examples/09.jpg) | 少し黙っている |
+| ![](assets/examples/10.jpg) | わかるかな〜？ |
+| ![](assets/examples/11.jpg) | 警察にも先生にも町中の人達に！！ |
 
 
 # Acknowledgments
 
-This project was done with the usage of [Manga109-s](http://www.manga109.org/en/download_s.html) dataset.
+This project was done with the usage of:
+- [Manga109-s](http://www.manga109.org/en/download_s.html) dataset
+- [CC-100](https://data.statmt.org/cc-100/) dataset
