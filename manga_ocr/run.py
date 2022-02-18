@@ -107,8 +107,9 @@ def run(read_from='clipboard',
 
                     try:
                         img = Image.open(path)
-                    except UnidentifiedImageError:
-                        logger.warning(f'Error while reading file {path}')
+                        img.load()
+                    except (UnidentifiedImageError, OSError) as e:
+                        logger.warning(f'Error while reading file {path}: {e}')
                     else:
                         process_and_write_results(mocr, img, write_to)
 
