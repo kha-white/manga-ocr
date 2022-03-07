@@ -36,7 +36,7 @@ def process_and_write_results(mocr, img_or_path, write_to):
         if write_to.suffix != '.txt':
             raise ValueError('write_to must be either "clipboard" or a path to a text file')
 
-        with write_to.open('a') as f:
+        with write_to.open('a', encoding="utf-8") as f:
             f.write(text + '\n')
 
 
