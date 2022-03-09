@@ -21,7 +21,10 @@ class MangaOcr:
         else:
             logger.info('Using CPU')
 
-        self(Path(__file__).parent.parent / 'assets/example.jpg')
+        example_path = Path(__file__).parent / 'assets/example.jpg'
+        if not example_path.is_file():
+            example_path = Path(__file__).parent.parent / 'assets/example.jpg'
+        self(example_path)
 
         logger.info('OCR ready')
 
