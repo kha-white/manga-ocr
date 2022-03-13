@@ -8,6 +8,7 @@ import pyperclip
 from PIL import Image
 from PIL import UnidentifiedImageError
 from loguru import logger
+from cutlet import Cutlet
 
 from manga_ocr import MangaOcr
 
@@ -31,6 +32,22 @@ def process_and_write_results(mocr, img_or_path, write_to):
 
     if write_to == 'clipboard':
         pyperclip.copy(text)
+		
+    elif write_to == 'romaji':
+        write_to = Path('./output.txt')
+        with write_to.open('a') as f:
+            katsu = Cutlet()
+            romaji = katsu.romaji(text)
+            f.write(romaji + '\n')
+			
+    elif write_to == 'both':
+        write_to = Path('./output.txt')
+        with write_to.open('a', encoding="utf-8") as f:
+            katsu = Cutlet()
+            romaji = katsu.romaji(text)
+            f.write(text + '\n')
+            f.write(romaji + '\n')
+			
     else:
         write_to = Path(write_to)
         if write_to.suffix != '.txt':
