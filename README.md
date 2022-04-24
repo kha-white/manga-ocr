@@ -15,6 +15,8 @@ Unlike many OCR models, Manga OCR supports recognizing multi-line text in a sing
 so that text bubbles found in manga can be processed at once, without splitting them into lines.
 
 See also:
+- [Poricom](https://github.com/bluaxees/Poricom), a GUI reader, which uses manga-ocr
+- [mokuro](https://github.com/kha-white/mokuro), a tool, which uses manga-ocr to generate an HTML overlay for manga
 - Development code, including code for training and synthetic data generation: [link](manga_ocr_dev)
 - Description of synthetic data generation pipeline + examples of generated images: [link](manga_ocr_dev/synthetic_data_generator)
 
