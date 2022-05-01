@@ -17,7 +17,7 @@ so that text bubbles found in manga can be processed at once, without splitting 
 See also:
 - [Poricom](https://github.com/bluaxees/Poricom), a GUI reader, which uses manga-ocr
 - [mokuro](https://github.com/kha-white/mokuro), a tool, which uses manga-ocr to generate an HTML overlay for manga
-- [Xelieu's guide](https://rentry.co/lazyXel), a comprehensive guide on setting up a reading and mining workflow with manga-ocr/mokuro 
+- [Xelieu's guide](https://rentry.co/lazyXel), a comprehensive guide on setting up a reading and mining workflow with manga-ocr/mokuro (and many other useful tips)
 - Development code, including code for training and synthetic data generation: [link](manga_ocr_dev)
 - Description of synthetic data generation pipeline + examples of generated images: [link](manga_ocr_dev/synthetic_data_generator)
 
