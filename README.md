@@ -25,10 +25,6 @@ See also:
 
 You need Python 3.6, 3.7, 3.8 or 3.9. Unfortunately, PyTorch does not support Python 3.10 yet.
 
-Some users have reported problems with Python installed from Microsoft Store. If you see an error:
-`ImportError: DLL load failed while importing fugashi: The specified module could not be found.`,
-try installing Python from the [official site](https://www.python.org/downloads).
-
 If you want to run with GPU, install PyTorch as described [here](https://pytorch.org/get-started/locally/#start-locally),
 otherwise this step can be skipped.
 
@@ -37,6 +33,11 @@ Run in command line:
 ```commandline
 pip3 install manga-ocr
 ```
+
+## Troubleshooting
+
+- `ImportError: DLL load failed while importing fugashi: The specified module could not be found.` - might be because of Python installed from Microsoft Store, try installing Python from the [official site](https://www.python.org/downloads)
+- problem with installing `mecab-python3` on ARM architecture - try [this workaround](https://github.com/kha-white/manga-ocr/issues/16)
 
 # Usage
 
