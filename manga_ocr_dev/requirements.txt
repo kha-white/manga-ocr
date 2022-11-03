@@ -11,6 +11,7 @@ numpy
 opencv-python
 pandas
 Pillow
+pytest
 scikit-image
 scikit-learn
 scipy

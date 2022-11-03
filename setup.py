@@ -26,6 +26,7 @@ setup(
         "numpy",
         "Pillow",
         "pyperclip",
+        "sentencepiece",
         "torch>=1.0",
         "transformers>=4.12.5",
         "unidic_lite",
