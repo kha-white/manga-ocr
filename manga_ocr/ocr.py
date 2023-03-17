@@ -18,6 +18,9 @@ class MangaOcr:
         if not force_cpu and torch.cuda.is_available():
             logger.info('Using CUDA')
             self.model.cuda()
+        if not force_cpu and torch.backends.mps.is_available():
+            logger.info('Using MPS')
+            self.model.to('mps')
         else:
             logger.info('Using CPU')
 
