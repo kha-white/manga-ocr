@@ -5,7 +5,7 @@ long_description = (Path(__file__).parent / "README.md").read_text('utf-8').spli
 
 setup(
     name="manga-ocr",
-    version='0.1.8',
+    version='0.1.9',
     description="OCR for Japanese manga",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -26,9 +26,8 @@ setup(
         "numpy",
         "Pillow",
         "pyperclip",
-        "sentencepiece",
         "torch>=1.0",
-        "transformers>=4.12.5",
+        "transformers>=4.25.0",
         "unidic_lite",
     ],
     entry_points={
