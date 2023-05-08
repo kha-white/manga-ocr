@@ -37,7 +37,7 @@ class MangaOcr:
         elif isinstance(img_or_path, Image.Image):
             img = img_or_path
         else:
-            raise ValueError(f'Invalid value of img_or_path: {img_or_path}')
+            raise ValueError(f'img_or_path must be a path or PIL.Image, instead got: {img_or_path}')
 
         img = img.convert('L').convert('RGB')
 

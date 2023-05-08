@@ -5,7 +5,7 @@ loguru
 numpy
 Pillow
 pyperclip
-torch>=2.0.0
-transformers>=4.12.5
+torch>=1.0
+transformers>=4.25.0
 sentencepiece
 unidic_lite
