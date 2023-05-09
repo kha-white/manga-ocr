@@ -7,5 +7,4 @@ Pillow
 pyperclip
 torch>=1.0
 transformers>=4.25.0
-sentencepiece
 unidic_lite
