@@ -63,25 +63,7 @@ def run(read_from='clipboard',
 
     mocr = MangaOcr(pretrained_model_name_or_path, force_cpu)
 
-    if sys.platform not in ('darwin', 'win32') and write_to == 'clipboard':
-        # Check if the system is using Wayland
-        import os
-        if os.environ.get('WAYLAND_DISPLAY'):
-            # Check if the wl-clipboard package is installed
-            if os.system("which wl-copy > /dev/null") == 0:
-                pyperclip.set_clipboard("wl-clipboard")
-            else:
-                msg = 'Your session uses wayland and does not have wl-clipboard installed. ' \
-                    'Install wl-clipboard for write in clipboard to work.'
-                raise NotImplementedError(msg)
-
     if read_from == 'clipboard':
-
-        if sys.platform not in ('darwin', 'win32'):
-            msg = 'Reading images from clipboard works only on macOS and Windows. ' \
-                  'On Linux, run "manga_ocr /path/to/screenshot/folder" to read images from a folder instead.'
-            raise NotImplementedError(msg)
-
         from PIL import ImageGrab
         logger.info('Reading from clipboard')
 
@@ -91,14 +73,20 @@ def run(read_from='clipboard',
 
             try:
                 img = ImageGrab.grabclipboard()
-            except OSError:
-                logger.warning('Error while reading from clipboard')
+            except OSError as error:
+                if "cannot identify image file" in str(error):
+                    # Pillow error when clipboard hasn't changed since last grab (Linux)
+                    pass
+                elif "target image/png not available" in str(error):
+                    # Pillow error when clipboard contains text (Linux, X11)
+                    pass
+                else:
+                    logger.warning('Error while reading from clipboard ({})'.format(error))
             else:
                 if isinstance(img, Image.Image) and not are_images_identical(img, old_img):
                     process_and_write_results(mocr, img, write_to)
 
             time.sleep(delay_secs)
-
 
     else:
         read_from = Path(read_from)
