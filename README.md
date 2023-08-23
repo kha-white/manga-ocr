@@ -23,7 +23,7 @@ See also:
 
 # Installation
 
-You need Python 3.6, 3.7, 3.8 or 3.9. Unfortunately, PyTorch does not support Python 3.10 yet.
+You need Python 3.8, 3.9, 3.10 or 3.11.
 
 If you want to run with GPU, install PyTorch as described [here](https://pytorch.org/get-started/locally/#start-locally),
 otherwise this step can be skipped.
@@ -69,7 +69,6 @@ Manga OCR can run in the background and process new images as they appear.
 You might use a tool like [ShareX](https://getsharex.com/) to manually capture a region of the screen and let the
 OCR read it either from the system clipboard, or a specified directory. By default, Manga OCR will write recognized text to clipboard,
 from which it can be read by a dictionary like [Yomichan](https://github.com/FooSoft/yomichan).
-Reading images from clipboard works only on Windows and macOS, on Linux you should read from a directory instead.
 
 Your full setup for reading manga in Japanese with a dictionary might look like this:
 
