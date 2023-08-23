@@ -66,9 +66,11 @@ text = mocr(img)
 
 Manga OCR can run in the background and process new images as they appear.
 
-You might use a tool like [ShareX](https://getsharex.com/) to manually capture a region of the screen and let the
+You might use a tool like [ShareX](https://getsharex.com/) or [Flameshot](https://flameshot.org/) to manually capture a region of the screen and let the
 OCR read it either from the system clipboard, or a specified directory. By default, Manga OCR will write recognized text to clipboard,
 from which it can be read by a dictionary like [Yomichan](https://github.com/FooSoft/yomichan).
+
+Clipboard mode on Linux requires `wl-copy` for Wayland sessions or `xclip` for X11 sessions. You can find out which one your system needs by running `echo $XDG_SESSION_TYPE` in the terminal.
 
 Your full setup for reading manga in Japanese with a dictionary might look like this:
 
