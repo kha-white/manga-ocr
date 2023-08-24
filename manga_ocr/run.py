@@ -65,6 +65,18 @@ def run(read_from='clipboard',
 
     mocr = MangaOcr(pretrained_model_name_or_path, force_cpu)
 
+    if sys.platform not in ('darwin', 'win32') and write_to == 'clipboard':
+        # Check if the system is using Wayland
+        import os
+        if os.environ.get('WAYLAND_DISPLAY'):
+            # Check if the wl-clipboard package is installed
+            if os.system("which wl-copy > /dev/null") == 0:
+                pyperclip.set_clipboard("wl-clipboard")
+            else:
+                msg = 'Your session uses wayland and does not have wl-clipboard installed. ' \
+                    'Install wl-clipboard for write in clipboard to work.'
+                raise NotImplementedError(msg)
+
     if read_from == 'clipboard':
         from PIL import ImageGrab
         logger.info('Reading from clipboard')
