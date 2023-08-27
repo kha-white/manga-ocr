@@ -3,7 +3,7 @@ fugashi
 jaconv
 loguru
 numpy
-Pillow
+Pillow>=10.0.0
 pyperclip
 torch>=1.0
 transformers>=4.25.0
