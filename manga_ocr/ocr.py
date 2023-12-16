@@ -5,13 +5,13 @@ import jaconv
 import torch
 from PIL import Image
 from loguru import logger
-from transformers import AutoFeatureExtractor, AutoTokenizer, VisionEncoderDecoderModel
+from transformers import ViTImageProcessor, AutoTokenizer, VisionEncoderDecoderModel
 
 
 class MangaOcr:
     def __init__(self, pretrained_model_name_or_path='kha-white/manga-ocr-base', force_cpu=False):
         logger.info(f'Loading OCR model from {pretrained_model_name_or_path}')
-        self.feature_extractor = AutoFeatureExtractor.from_pretrained(pretrained_model_name_or_path)
+        self.processor = ViTImageProcessor.from_pretrained(pretrained_model_name_or_path)
         self.tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path)
         self.model = VisionEncoderDecoderModel.from_pretrained(pretrained_model_name_or_path)
 
@@ -48,7 +48,7 @@ class MangaOcr:
         return x
 
     def _preprocess(self, img):
-        pixel_values = self.feature_extractor(img, return_tensors="pt").pixel_values
+        pixel_values = self.processor(img, return_tensors="pt").pixel_values
         return pixel_values.squeeze()
 
 
