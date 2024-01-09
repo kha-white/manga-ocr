@@ -16,7 +16,10 @@ setup(
     classifiers=[
         "Programming Language :: Python :: 3",
     ],
-    packages=['manga_ocr'],
+    packages=[
+        'manga_ocr',
+        'manga_ocr.assets',
+    ],
     include_package_data=True,
     install_requires=[
         "fire",
