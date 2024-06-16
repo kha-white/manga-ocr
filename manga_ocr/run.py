@@ -32,7 +32,8 @@ def process_and_write_results(mocr, img_or_path, write_to):
     if write_to == 'clipboard':
         pyperclip.copy(text)
     elif write_to == 'cli':
-        print(text)
+        for i in text:
+            print(i)
     else:
         write_to = Path(write_to)
         if write_to.suffix != '.txt':
@@ -108,17 +109,10 @@ def run(read_from='clipboard',
 
         while True:
             path = input('Enter image path:\n')
-            read_from = Path(path)
-            if not read_from.is_file():
-                print(f'{path} is not a file')
-                continue
-            try:
-                img = Image.open(read_from)
-                img.load()
-            except (UnidentifiedImageError, OSError) as e:
-                print(f'Error while reading file {path}: {e}')
-            else:
-                process_and_write_results(mocr, img, write_to)
+            paths = path.split(",")
+            images = get_images(paths)
+            if len(images) > 0:
+                process_and_write_results(mocr, images, write_to)
     else:
         read_from = Path(read_from)
         if not read_from.is_dir():
@@ -145,6 +139,22 @@ def run(read_from='clipboard',
                         process_and_write_results(mocr, img, write_to)
 
             time.sleep(delay_secs)
+
+
+def get_images(paths):
+    images = []
+    for path in paths:
+        read_from = Path(path)
+        if not read_from.is_file():
+            print(f'{path} is not a file')
+            continue
+        try:
+            img = Image.open(read_from)
+            img.load()
+            images.append(img)
+        except (UnidentifiedImageError, OSError) as e:
+            print(f'Error while reading file {read_from}: {e}')
+    return images
 
 
 if __name__ == '__main__':
