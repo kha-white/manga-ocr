@@ -9,29 +9,35 @@ from manga_ocr_dev.training.metrics import Metrics
 
 
 def run(
-        run_name='debug',
-        encoder_name='facebook/deit-tiny-patch16-224',
-        decoder_name='cl-tohoku/bert-base-japanese-char-v2',
-        max_len=300,
-        num_decoder_layers=2,
-        batch_size=64,
-        num_epochs=8,
-        fp16=True,
+    run_name="debug",
+    encoder_name="facebook/deit-tiny-patch16-224",
+    decoder_name="cl-tohoku/bert-base-japanese-char-v2",
+    max_len=300,
+    num_decoder_layers=2,
+    batch_size=64,
+    num_epochs=8,
+    fp16=True,
 ):
     wandb.login()
 
-    model, processor = get_model(encoder_name, decoder_name, max_len, num_decoder_layers)
+    model, processor = get_model(
+        encoder_name, decoder_name, max_len, num_decoder_layers
+    )
 
     # keep package 0 for validation
-    train_dataset = MangaDataset(processor, 'train', max_len, augment=True, skip_packages=[0])
-    eval_dataset = MangaDataset(processor, 'test', max_len, augment=False, skip_packages=range(1, 9999))
+    train_dataset = MangaDataset(
+        processor, "train", max_len, augment=True, skip_packages=[0]
+    )
+    eval_dataset = MangaDataset(
+        processor, "test", max_len, augment=False, skip_packages=range(1, 9999)
+    )
 
     metrics = Metrics(processor)
 
     training_args = Seq2SeqTrainingArguments(
         predict_with_generate=True,
-        evaluation_strategy='steps',
-        save_strategy='steps',
+        evaluation_strategy="steps",
+        save_strategy="steps",
         per_device_train_batch_size=batch_size,
         per_device_eval_batch_size=batch_size,
         fp16=fp16,
@@ -42,7 +48,7 @@ def run(
         save_steps=20000,
         eval_steps=20000,
         num_train_epochs=num_epochs,
-        run_name=run_name
+        run_name=run_name,
     )
 
     # instantiate trainer
@@ -60,5 +66,5 @@ def run(
     wandb.finish()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     fire.Fire(run)

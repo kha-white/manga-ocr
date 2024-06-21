@@ -47,8 +47,8 @@ def find_rectangle(mask, y, x, aspect_ratio_range=(0.33, 3.0)):
 
 
 def generate_backgrounds(crops_per_page=5, min_size=40):
-    data = pd.read_csv(MANGA109_ROOT / 'data.csv')
-    frames_df = pd.read_csv(MANGA109_ROOT / 'frames.csv')
+    data = pd.read_csv(MANGA109_ROOT / "data.csv")
+    frames_df = pd.read_csv(MANGA109_ROOT / "frames.csv")
 
     BACKGROUND_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -57,11 +57,11 @@ def generate_backgrounds(crops_per_page=5, min_size=40):
         page = cv2.imread(str(MANGA109_ROOT / page_path))
         mask = np.zeros((page.shape[0], page.shape[1]), dtype=bool)
         for row in data[data.page_path == page_path].itertuples():
-            mask[row.ymin:row.ymax, row.xmin:row.xmax] = True
+            mask[row.ymin : row.ymax, row.xmin : row.xmax] = True
 
         frames_mask = np.zeros((page.shape[0], page.shape[1]), dtype=bool)
         for row in frames_df[frames_df.page_path == page_path].itertuples():
-            frames_mask[row.ymin:row.ymax, row.xmin:row.xmax] = True
+            frames_mask[row.ymin : row.ymax, row.xmin : row.xmax] = True
 
         mask = mask | ~frames_mask
 
@@ -76,10 +76,12 @@ def generate_backgrounds(crops_per_page=5, min_size=40):
             crop = page[ymin:ymax, xmin:xmax]
 
             if crop.shape[0] >= min_size and crop.shape[1] >= min_size:
-                out_filename = '_'.join(
-                    Path(page_path).with_suffix('').parts[-2:]) + f'_{ymin}_{ymax}_{xmin}_{xmax}.png'
+                out_filename = (
+                    "_".join(Path(page_path).with_suffix("").parts[-2:])
+                    + f"_{ymin}_{ymax}_{xmin}_{xmax}.png"
+                )
                 cv2.imwrite(str(BACKGROUND_DIR / out_filename), crop)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     generate_backgrounds()

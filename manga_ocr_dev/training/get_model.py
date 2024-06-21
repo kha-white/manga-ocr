@@ -1,5 +1,13 @@
-from transformers import AutoConfig, AutoModelForCausalLM, AutoModel, TrOCRProcessor, VisionEncoderDecoderModel, \
-    AutoFeatureExtractor, AutoTokenizer, VisionEncoderDecoderConfig
+from transformers import (
+    AutoConfig,
+    AutoModelForCausalLM,
+    AutoModel,
+    TrOCRProcessor,
+    VisionEncoderDecoderModel,
+    AutoFeatureExtractor,
+    AutoTokenizer,
+    VisionEncoderDecoderConfig,
+)
 
 
 class TrOCRProcessorCustom(TrOCRProcessor):
@@ -31,16 +39,22 @@ def get_model(encoder_name, decoder_name, max_length, num_decoder_layers=None):
     decoder = AutoModelForCausalLM.from_config(decoder_config)
 
     if num_decoder_layers is not None:
-        if decoder_config.model_type == 'bert':
-            decoder.bert.encoder.layer = decoder.bert.encoder.layer[-num_decoder_layers:]
-        elif decoder_config.model_type in ('roberta', 'xlm-roberta'):
-            decoder.roberta.encoder.layer = decoder.roberta.encoder.layer[-num_decoder_layers:]
+        if decoder_config.model_type == "bert":
+            decoder.bert.encoder.layer = decoder.bert.encoder.layer[
+                -num_decoder_layers:
+            ]
+        elif decoder_config.model_type in ("roberta", "xlm-roberta"):
+            decoder.roberta.encoder.layer = decoder.roberta.encoder.layer[
+                -num_decoder_layers:
+            ]
         else:
-            raise ValueError(f'Unsupported model_type: {decoder_config.model_type}')
+            raise ValueError(f"Unsupported model_type: {decoder_config.model_type}")
 
         decoder_config.num_hidden_layers = num_decoder_layers
 
-    config = VisionEncoderDecoderConfig.from_encoder_decoder_configs(encoder.config, decoder.config)
+    config = VisionEncoderDecoderConfig.from_encoder_decoder_configs(
+        encoder.config, decoder.config
+    )
     config.tie_word_embeddings = False
     model = VisionEncoderDecoderModel(encoder=encoder, decoder=decoder, config=config)
 
