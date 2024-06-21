@@ -1,3 +1,2 @@
-__version__ = '0.1.11'
-
+from ._version import __version__
 from manga_ocr.ocr import MangaOcr
