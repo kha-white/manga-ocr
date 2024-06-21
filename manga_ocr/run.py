@@ -31,10 +31,13 @@ def process_and_write_results(mocr, img_or_path, write_to):
 
     if write_to == 'clipboard':
         pyperclip.copy(text)
+    elif write_to == 'cli':
+        for i in text:
+            print(i)
     else:
         write_to = Path(write_to)
         if write_to.suffix != '.txt':
-            raise ValueError('write_to must be either "clipboard" or a path to a text file')
+            raise ValueError('write_to must be either "clipboard", "cli" or a path to a text file')
 
         with write_to.open('a', encoding="utf-8") as f:
             f.write(text + '\n')
@@ -101,11 +104,19 @@ def run(read_from='clipboard',
                     process_and_write_results(mocr, img, write_to)
 
             time.sleep(delay_secs)
+    elif read_from == 'cli':
+        logger.info(f'Reading from cli')
 
+        while True:
+            path = input('Enter image path:\n')
+            paths = path.split(",")
+            images = get_images(paths)
+            if len(images) > 0:
+                process_and_write_results(mocr, images, write_to)
     else:
         read_from = Path(read_from)
         if not read_from.is_dir():
-            raise ValueError('read_from must be either "clipboard" or a path to a directory')
+            raise ValueError('read_from must be either "clipboard", "cli" or a path to a directory')
 
         logger.info(f'Reading from directory {read_from}')
 
@@ -128,6 +139,22 @@ def run(read_from='clipboard',
                         process_and_write_results(mocr, img, write_to)
 
             time.sleep(delay_secs)
+
+
+def get_images(paths):
+    images = []
+    for path in paths:
+        read_from = Path(path)
+        if not read_from.is_file():
+            print(f'{path} is not a file')
+            continue
+        try:
+            img = Image.open(read_from)
+            img.load()
+            images.append(img)
+        except (UnidentifiedImageError, OSError) as e:
+            print(f'Error while reading file {read_from}: {e}')
+    return images
 
 
 if __name__ == '__main__':

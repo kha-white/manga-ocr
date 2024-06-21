@@ -17,12 +17,15 @@ class MangaOcr:
 
         if not force_cpu and torch.cuda.is_available():
             logger.info('Using CUDA')
+            print('Using CUDA')
             self.model.cuda()
         elif not force_cpu and torch.backends.mps.is_available():
             logger.info('Using MPS')
+            print('Using MPS')
             self.model.to('mps')
         else:
             logger.info('Using CPU')
+            print('Using CPU')
 
         example_path = Path(__file__).parent / 'assets/example.jpg'
         if not example_path.is_file():
@@ -33,18 +36,24 @@ class MangaOcr:
 
     def __call__(self, img_or_path):
         if isinstance(img_or_path, str) or isinstance(img_or_path, Path):
-            img = Image.open(img_or_path)
+            img = [Image.open(img_or_path)]
         elif isinstance(img_or_path, Image.Image):
+            img = [img_or_path]
+        elif type(img_or_path) in (tuple, list):
             img = img_or_path
         else:
             raise ValueError(f'img_or_path must be a path or PIL.Image, instead got: {img_or_path}')
 
-        img = img.convert('L').convert('RGB')
+        img = [i.convert('L').convert('RGB') for i in img]
 
         x = self._preprocess(img)
-        x = self.model.generate(x[None].to(self.model.device), max_length=300)[0].cpu()
-        x = self.tokenizer.decode(x, skip_special_tokens=True)
-        x = post_process(x)
+
+        if x.dim() == 3:
+            x = x.unsqueeze(0)
+
+        x = self.model.generate(x.to(self.model.device), max_length=300).cpu()
+        x = [self.tokenizer.decode(x[i], skip_special_tokens=True) for i in range(x.size(dim=0))]
+        x = [post_process(i) for i in x]
         return x
 
     def _preprocess(self, img):
