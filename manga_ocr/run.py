@@ -27,30 +27,33 @@ def process_and_write_results(mocr, img_or_path, write_to):
     text = mocr(img_or_path)
     t1 = time.time()
 
-    logger.info(f'Text recognized in {t1 - t0:0.03f} s: {text}')
+    logger.info(f"Text recognized in {t1 - t0:0.03f} s: {text}")
 
-    if write_to == 'clipboard':
+    if write_to == "clipboard":
         pyperclip.copy(text)
     else:
         write_to = Path(write_to)
-        if write_to.suffix != '.txt':
-            raise ValueError('write_to must be either "clipboard" or a path to a text file')
+        if write_to.suffix != ".txt":
+            raise ValueError(
+                'write_to must be either "clipboard" or a path to a text file'
+            )
 
-        with write_to.open('a', encoding="utf-8") as f:
-            f.write(text + '\n')
+        with write_to.open("a", encoding="utf-8") as f:
+            f.write(text + "\n")
 
 
 def get_path_key(path):
     return path, path.lstat().st_mtime
 
 
-def run(read_from='clipboard',
-        write_to='clipboard',
-        pretrained_model_name_or_path='kha-white/manga-ocr-base',
-        force_cpu=False,
-        delay_secs=0.1,
-        verbose=False
-        ):
+def run(
+    read_from="clipboard",
+    write_to="clipboard",
+    pretrained_model_name_or_path="kha-white/manga-ocr-base",
+    force_cpu=False,
+    delay_secs=0.1,
+    verbose=False,
+):
     """
     Run OCR in the background, waiting for new images to appear either in system clipboard, or a directory.
     Recognized texts can be either saved to system clipboard, or appended to a text file.
@@ -65,21 +68,25 @@ def run(read_from='clipboard',
 
     mocr = MangaOcr(pretrained_model_name_or_path, force_cpu)
 
-    if sys.platform not in ('darwin', 'win32') and write_to == 'clipboard':
+    if sys.platform not in ("darwin", "win32") and write_to == "clipboard":
         # Check if the system is using Wayland
         import os
-        if os.environ.get('WAYLAND_DISPLAY'):
+
+        if os.environ.get("WAYLAND_DISPLAY"):
             # Check if the wl-clipboard package is installed
             if os.system("which wl-copy > /dev/null") == 0:
                 pyperclip.set_clipboard("wl-clipboard")
             else:
-                msg = 'Your session uses wayland and does not have wl-clipboard installed. ' \
-                    'Install wl-clipboard for write in clipboard to work.'
+                msg = (
+                    "Your session uses wayland and does not have wl-clipboard installed. "
+                    "Install wl-clipboard for write in clipboard to work."
+                )
                 raise NotImplementedError(msg)
 
-    if read_from == 'clipboard':
+    if read_from == "clipboard":
         from PIL import ImageGrab
-        logger.info('Reading from clipboard')
+
+        logger.info("Reading from clipboard")
 
         img = None
         while True:
@@ -95,9 +102,13 @@ def run(read_from='clipboard',
                     # Pillow error when clipboard contains text (Linux, X11)
                     pass
                 else:
-                    logger.warning('Error while reading from clipboard ({})'.format(error))
+                    logger.warning(
+                        "Error while reading from clipboard ({})".format(error)
+                    )
             else:
-                if isinstance(img, Image.Image) and not are_images_identical(img, old_img):
+                if isinstance(img, Image.Image) and not are_images_identical(
+                    img, old_img
+                ):
                     process_and_write_results(mocr, img, write_to)
 
             time.sleep(delay_secs)
@@ -105,9 +116,11 @@ def run(read_from='clipboard',
     else:
         read_from = Path(read_from)
         if not read_from.is_dir():
-            raise ValueError('read_from must be either "clipboard" or a path to a directory')
+            raise ValueError(
+                'read_from must be either "clipboard" or a path to a directory'
+            )
 
-        logger.info(f'Reading from directory {read_from}')
+        logger.info(f"Reading from directory {read_from}")
 
         old_paths = set()
         for path in read_from.iterdir():
@@ -123,12 +136,12 @@ def run(read_from='clipboard',
                         img = Image.open(path)
                         img.load()
                     except (UnidentifiedImageError, OSError) as e:
-                        logger.warning(f'Error while reading file {path}: {e}')
+                        logger.warning(f"Error while reading file {path}: {e}")
                     else:
                         process_and_write_results(mocr, img, write_to)
 
             time.sleep(delay_secs)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     fire.Fire(run)
