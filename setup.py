@@ -1,11 +1,13 @@
 from pathlib import Path
 from setuptools import setup
 
-long_description = (Path(__file__).parent / "README.md").read_text('utf-8').split('# Installation')[0]
+long_description = (
+    (Path(__file__).parent / "README.md").read_text("utf-8").split("# Installation")[0]
+)
 
 setup(
     name="manga-ocr",
-    version='0.1.11',
+    version="0.1.11",
     description="OCR for Japanese manga",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -16,7 +18,7 @@ setup(
     classifiers=[
         "Programming Language :: Python :: 3",
     ],
-    packages=['manga_ocr'],
+    packages=["manga_ocr"],
     include_package_data=True,
     install_requires=[
         "fire",
