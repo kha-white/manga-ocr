@@ -128,7 +128,6 @@ class SyntheticDataGenerator:
         kanji_group = ""
         ascii_group = ""
         for i, c in enumerate(line):
-
             if is_kanji(c):
                 c_type = "kanji"
                 kanji_group += c
@@ -141,12 +140,8 @@ class SyntheticDataGenerator:
             if c_type != "kanji" or i == len(line) - 1:
                 if kanji_group:
                     if np.random.uniform() < word_prob:
-                        furigana_len = int(
-                            np.clip(np.random.normal(1.5, 0.5), 1, 4) * len(kanji_group)
-                        )
-                        char_source = np.random.choice(
-                            ["hiragana", "katakana", "all"], p=[0.8, 0.15, 0.05]
-                        )
+                        furigana_len = int(np.clip(np.random.normal(1.5, 0.5), 1, 4) * len(kanji_group))
+                        char_source = np.random.choice(["hiragana", "katakana", "all"], p=[0.8, 0.15, 0.05])
                         char_source = {
                             "hiragana": self.hiragana,
                             "katakana": self.katakana,

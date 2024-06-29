@@ -14,9 +14,7 @@ def get_books():
     books = pd.DataFrame(
         {
             "book": books,
-            "annotations": [
-                str(root / "annotations" / f"{book}.xml") for book in books
-            ],
+            "annotations": [str(root / "annotations" / f"{book}.xml") for book in books],
             "images": [str(root / "images" / book) for book in books],
         }
     )
@@ -36,9 +34,7 @@ def export_frames():
                 row = {}
                 row["book"] = book.book
                 row["page_index"] = int(page.attrib["index"])
-                row["page_path"] = str(
-                    Path(book.images) / f'{row["page_index"]:03d}.jpg'
-                )
+                row["page_path"] = str(Path(book.images) / f'{row["page_index"]:03d}.jpg')
                 row["page_width"] = int(page.attrib["width"])
                 row["page_height"] = int(page.attrib["height"])
                 row["id"] = frame.attrib["id"]
@@ -69,9 +65,7 @@ def export_crops():
                 row = {}
                 row["book"] = book.book
                 row["page_index"] = int(page.attrib["index"])
-                row["page_path"] = str(
-                    Path(book.images) / f'{row["page_index"]:03d}.jpg'
-                )
+                row["page_path"] = str(Path(book.images) / f'{row["page_index"]:03d}.jpg')
                 row["page_width"] = int(page.attrib["width"])
                 row["page_height"] = int(page.attrib["height"])
                 row["id"] = text.attrib["id"]
@@ -93,9 +87,7 @@ def export_crops():
     data.crop_path = data.crop_path.apply(lambda x: "/".join(Path(x).parts[-2:]))
     data.to_csv(MANGA109_ROOT / "data.csv", index=False)
 
-    for page_path, boxes in tqdm(
-        data.groupby("page_path"), total=data.page_path.nunique()
-    ):
+    for page_path, boxes in tqdm(data.groupby("page_path"), total=data.page_path.nunique()):
         img = cv2.imread(str(MANGA109_ROOT / page_path))
 
         for box in boxes.itertuples():

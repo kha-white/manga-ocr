@@ -24,7 +24,7 @@ def f(args):
         ret = source, id_, text_gt, params["vertical"], str(font_path)
         return ret
 
-    except Exception as e:
+    except Exception:
         print(traceback.format_exc())
 
 
@@ -54,9 +54,7 @@ def run(package=0, n_random=1000, n_limit=None, max_workers=16):
     OUT_DIR = DATA_SYNTHETIC_ROOT / "img" / package
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    data = thread_map(
-        f, args, max_workers=max_workers, desc=f"Processing package {package}"
-    )
+    data = thread_map(f, args, max_workers=max_workers, desc=f"Processing package {package}")
 
     data = pd.DataFrame(data, columns=["source", "id", "text", "vertical", "font_path"])
     meta_path = DATA_SYNTHETIC_ROOT / f"meta/{package}.csv"
