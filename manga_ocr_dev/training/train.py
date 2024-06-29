@@ -20,17 +20,11 @@ def run(
 ):
     wandb.login()
 
-    model, processor = get_model(
-        encoder_name, decoder_name, max_len, num_decoder_layers
-    )
+    model, processor = get_model(encoder_name, decoder_name, max_len, num_decoder_layers)
 
     # keep package 0 for validation
-    train_dataset = MangaDataset(
-        processor, "train", max_len, augment=True, skip_packages=[0]
-    )
-    eval_dataset = MangaDataset(
-        processor, "test", max_len, augment=False, skip_packages=range(1, 9999)
-    )
+    train_dataset = MangaDataset(processor, "train", max_len, augment=True, skip_packages=[0])
+    eval_dataset = MangaDataset(processor, "test", max_len, augment=False, skip_packages=range(1, 9999))
 
     metrics = Metrics(processor)
 

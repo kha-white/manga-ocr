@@ -44,5 +44,9 @@ packages = ["manga_ocr"]
 [tool.setuptools.dynamic]
 version = {attr = "manga_ocr._version.__version__"}
 
+[tool.ruff]
+line-length = 120
+indent-width = 4
+
 [project.scripts]
 manga_ocr = "manga_ocr.__main__:main"

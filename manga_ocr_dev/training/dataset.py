@@ -40,9 +40,7 @@ class MangaDataset(Dataset):
                 continue
             df = pd.read_csv(path)
             df = df.dropna()
-            df["path"] = df.id.apply(
-                lambda x: str(DATA_SYNTHETIC_ROOT / "img" / path.stem / f"{x}.jpg")
-            )
+            df["path"] = df.id.apply(lambda x: str(DATA_SYNTHETIC_ROOT / "img" / path.stem / f"{x}.jpg"))
             df = df[["path", "text"]]
             df["synthetic"] = True
             data.append(df)

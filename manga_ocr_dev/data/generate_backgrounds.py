@@ -77,8 +77,7 @@ def generate_backgrounds(crops_per_page=5, min_size=40):
 
             if crop.shape[0] >= min_size and crop.shape[1] >= min_size:
                 out_filename = (
-                    "_".join(Path(page_path).with_suffix("").parts[-2:])
-                    + f"_{ymin}_{ymax}_{xmin}_{xmax}.png"
+                    "_".join(Path(page_path).with_suffix("").parts[-2:]) + f"_{ymin}_{ymax}_{xmin}_{xmax}.png"
                 )
                 cv2.imwrite(str(BACKGROUND_DIR / out_filename), crop)
 

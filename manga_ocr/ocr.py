@@ -9,17 +9,11 @@ from transformers import ViTImageProcessor, AutoTokenizer, VisionEncoderDecoderM
 
 
 class MangaOcr:
-    def __init__(
-        self, pretrained_model_name_or_path="kha-white/manga-ocr-base", force_cpu=False
-    ):
+    def __init__(self, pretrained_model_name_or_path="kha-white/manga-ocr-base", force_cpu=False):
         logger.info(f"Loading OCR model from {pretrained_model_name_or_path}")
-        self.processor = ViTImageProcessor.from_pretrained(
-            pretrained_model_name_or_path
-        )
+        self.processor = ViTImageProcessor.from_pretrained(pretrained_model_name_or_path)
         self.tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path)
-        self.model = VisionEncoderDecoderModel.from_pretrained(
-            pretrained_model_name_or_path
-        )
+        self.model = VisionEncoderDecoderModel.from_pretrained(pretrained_model_name_or_path)
 
         if not force_cpu and torch.cuda.is_available():
             logger.info("Using CUDA")
@@ -43,9 +37,7 @@ class MangaOcr:
         elif isinstance(img_or_path, Image.Image):
             img = img_or_path
         else:
-            raise ValueError(
-                f"img_or_path must be a path or PIL.Image, instead got: {img_or_path}"
-            )
+            raise ValueError(f"img_or_path must be a path or PIL.Image, instead got: {img_or_path}")
 
         img = img.convert("L").convert("RGB")
 

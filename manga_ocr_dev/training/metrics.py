@@ -21,9 +21,7 @@ class Metrics:
 
         results = {}
         try:
-            results["cer"] = self.cer_metric.compute(
-                predictions=pred_str, references=label_str
-            )
+            results["cer"] = self.cer_metric.compute(predictions=pred_str, references=label_str)
         except Exception as e:
             print(e)
             print(pred_str)

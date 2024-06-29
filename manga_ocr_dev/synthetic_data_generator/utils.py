@@ -52,7 +52,5 @@ def get_charsets(vocab_path=None):
 def get_font_meta():
     df = pd.read_csv(ASSETS_PATH / "fonts.csv")
     df.font_path = df.font_path.apply(lambda x: str(FONTS_ROOT / x))
-    font_map = {
-        row.font_path: set(row.supported_chars) for row in df.dropna().itertuples()
-    }
+    font_map = {row.font_path: set(row.supported_chars) for row in df.dropna().itertuples()}
     return df, font_map

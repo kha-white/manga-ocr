@@ -60,9 +60,7 @@ class Renderer:
         if np.random.rand() < 0.7:
             params["text_orientation"] = "upright"
 
-        stroke_variant = np.random.choice(
-            ["stroke", "shadow", "none"], p=[0.8, 0.15, 0.05]
-        )
+        stroke_variant = np.random.choice(["stroke", "shadow", "none"], p=[0.8, 0.15, 0.05])
         if stroke_variant == "stroke":
             params["stroke_size"] = np.random.choice([1, 2, 3, 4, 8])
             params["stroke_color"] = "white"
@@ -88,9 +86,7 @@ class Renderer:
             A.HorizontalFlip(),
             A.RandomRotate90(),
             A.InvertImg(),
-            A.RandomBrightnessContrast(
-                (-0.2, 0.4), (-0.8, -0.3), p=0.5 if draw_bubble else 1
-            ),
+            A.RandomBrightnessContrast((-0.2, 0.4), (-0.8, -0.3), p=0.5 if draw_bubble else 1),
             A.Blur((3, 5), p=0.3),
             A.Resize(img.shape[0], img.shape[1]),
         ]
@@ -108,17 +104,9 @@ class Renderer:
             sigma = np.random.randint(10, 15)
 
             ymin = m0 - int(min(img.shape[:2]) * np.random.uniform(0.07, 0.12))
-            ymax = (
-                img.shape[0]
-                - m0
-                + int(min(img.shape[:2]) * np.random.uniform(0.07, 0.12))
-            )
+            ymax = img.shape[0] - m0 + int(min(img.shape[:2]) * np.random.uniform(0.07, 0.12))
             xmin = m0 - int(min(img.shape[:2]) * np.random.uniform(0.07, 0.12))
-            xmax = (
-                img.shape[1]
-                - m0
-                + int(min(img.shape[:2]) * np.random.uniform(0.07, 0.12))
-            )
+            xmax = img.shape[1] - m0 + int(min(img.shape[:2]) * np.random.uniform(0.07, 0.12))
 
             bubble_fill_color = (255, 255, 255, 255)
             bubble_contour_color = (0, 0, 0, 255)
@@ -150,13 +138,9 @@ class Renderer:
         img = blend(img, background)
 
         ymin = m0 - int(min(img.shape[:2]) * np.random.uniform(0.01, 0.2))
-        ymax = (
-            img.shape[0] - m0 + int(min(img.shape[:2]) * np.random.uniform(0.01, 0.2))
-        )
+        ymax = img.shape[0] - m0 + int(min(img.shape[:2]) * np.random.uniform(0.01, 0.2))
         xmin = m0 - int(min(img.shape[:2]) * np.random.uniform(0.01, 0.2))
-        xmax = (
-            img.shape[1] - m0 + int(min(img.shape[:2]) * np.random.uniform(0.01, 0.2))
-        )
+        xmax = img.shape[1] - m0 + int(min(img.shape[:2]) * np.random.uniform(0.01, 0.2))
         img = img[ymin:ymax, xmin:xmax]
         return img
 
@@ -184,9 +168,7 @@ def blend(img, background):
     return img
 
 
-def rounded_rectangle(
-    src, top_left, bottom_right, radius=1, color=255, thickness=1, line_type=cv2.LINE_AA
-):
+def rounded_rectangle(src, top_left, bottom_right, radius=1, color=255, thickness=1, line_type=cv2.LINE_AA):
     """From https://stackoverflow.com/a/60210706"""
 
     #  corners:
@@ -345,9 +327,7 @@ def get_css(
         # stroke is simulated by shadow overlaid multiple times
         styles.extend(
             [
-                "text-shadow: "
-                + ",".join([f"0 0 {stroke_size}px {stroke_color}"] * 10 * stroke_size)
-                + ";",
+                "text-shadow: " + ",".join([f"0 0 {stroke_size}px {stroke_color}"] * 10 * stroke_size) + ";",
                 "-webkit-font-smoothing: antialiased;",
             ]
         )

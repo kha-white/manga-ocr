@@ -37,9 +37,4 @@ def decoder_summary(model, batch_size=4):
 
 
 def tensor_to_image(img):
-    return (
-        ((img.cpu().numpy() + 1) / 2 * 255)
-        .clip(0, 255)
-        .astype(np.uint8)
-        .transpose(1, 2, 0)
-    )
+    return ((img.cpu().numpy() + 1) / 2 * 255).clip(0, 255).astype(np.uint8).transpose(1, 2, 0)
