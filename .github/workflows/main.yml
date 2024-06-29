@@ -29,4 +29,4 @@ jobs:
 
       - name: Test
         run: |
-          pytest manga_ocr/tests
+          pytest
