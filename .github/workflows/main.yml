@@ -16,8 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          path: manga_ocr
 
       - name: Set up Python
         uses: actions/setup-python@v3
@@ -27,8 +25,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest
-          pip install -e manga_ocr
+          pip install -e ".[dev]"
 
       - name: Test
         run: |

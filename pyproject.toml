@@ -25,6 +25,12 @@ dependencies = [
     "unidic_lite",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+]
+
 [project.urls]
 Homepage = "https://github.com/kha-white/manga-ocr"
 

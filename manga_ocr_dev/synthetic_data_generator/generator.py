@@ -128,7 +128,6 @@ class SyntheticDataGenerator:
         kanji_group = ""
         ascii_group = ""
         for i, c in enumerate(line):
-
             if is_kanji(c):
                 c_type = "kanji"
                 kanji_group += c

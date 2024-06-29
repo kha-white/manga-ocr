@@ -24,7 +24,7 @@ def f(args):
         ret = source, id_, text_gt, params["vertical"], str(font_path)
         return ret
 
-    except Exception as e:
+    except Exception:
         print(traceback.format_exc())
 
 

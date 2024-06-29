@@ -345,7 +345,7 @@ def get_css(
         # stroke is simulated by shadow overlaid multiple times
         styles.extend(
             [
-                f"text-shadow: "
+                "text-shadow: "
                 + ",".join([f"0 0 {stroke_size}px {stroke_color}"] * 10 * stroke_size)
                 + ";",
                 "-webkit-font-smoothing: antialiased;",
