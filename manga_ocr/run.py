@@ -8,6 +8,7 @@ import pyperclip
 from PIL import Image
 from PIL import UnidentifiedImageError
 from loguru import logger
+from PIL.BmpImagePlugin import DibImageFile
 
 from manga_ocr import MangaOcr
 
@@ -102,7 +103,17 @@ def run(
                 else:
                     logger.warning("Error while reading from clipboard ({})".format(error))
             else:
-                if isinstance(img, Image.Image) and not are_images_identical(img, old_img):
+                if (
+                    isinstance(img, DibImageFile)
+                    and sys.platform == "win32"
+                    and not are_images_identical(img, old_img)
+                ):
+                    # Windows OneNote copies images as DibImageFile ignore by default
+                    # Windows Screen Snip copies images as PngImageFile
+                    pass
+                elif isinstance(img, Image.Image) and not are_images_identical(
+                    img, old_img
+                ):
                     process_and_write_results(mocr, img, write_to)
 
             time.sleep(delay_secs)
