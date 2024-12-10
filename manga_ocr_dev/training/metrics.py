@@ -4,7 +4,7 @@ import evaluate
 
 class Metrics:
     def __init__(self, processor):
-        self.cer_metric = evaluate.load("cer")#, trust_remote_code=True)
+        self.cer_metric = evaluate.load("cer")
         self.processor = processor
 
     def compute_metrics(self, pred):
