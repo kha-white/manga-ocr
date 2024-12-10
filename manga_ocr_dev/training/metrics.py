@@ -1,10 +1,10 @@
 import numpy as np
-from datasets import load_metric
+import evaluate
 
 
 class Metrics:
     def __init__(self, processor):
-        self.cer_metric = load_metric("cer")
+        self.cer_metric = evaluate.load("cer")#, trust_remote_code=True)
         self.processor = processor
 
     def compute_metrics(self, pred):
