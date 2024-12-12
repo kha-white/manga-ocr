@@ -47,7 +47,7 @@ def get_model(encoder_name, decoder_name, max_length, num_decoder_layers=None):
 
         decoder_config.num_hidden_layers = num_decoder_layers
 
-    config = VisionEncoderDecoderConfig.from_encoder_decoder_configs(encoder.config, decoder.config)
+    config = VisionEncoderDecoderConfig.from_encoder_decoder_configs(encoder_config, decoder_config)
     config.tie_word_embeddings = False
     model = VisionEncoderDecoderModel(encoder=encoder, decoder=decoder, config=config)
 
