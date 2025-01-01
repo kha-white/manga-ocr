@@ -17,7 +17,7 @@ dependencies = [
     "fugashi",
     "jaconv",
     "loguru",
-    "numpy<2",
+    "numpy",
     "Pillow>=10.0.0",
     "pyperclip",
     "torch>=1.0",
