@@ -34,6 +34,11 @@ Run in command line:
 pip3 install manga-ocr
 ```
 
+Local install
+```commandline
+pip install -e C:\Users\bluek\Documents\Python\manga-ocr
+```
+
 ## Troubleshooting
 
 - `ImportError: DLL load failed while importing fugashi: The specified module could not be found.` - might be because of Python installed from Microsoft Store, try installing Python from the [official site](https://www.python.org/downloads)

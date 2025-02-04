@@ -67,4 +67,6 @@ def post_process(text):
     text = re.sub('[・.]{2,}', lambda x: (x.end() - x.start()) * '.', text)
     text = jaconv.h2z(text, ascii=True, digit=True)
 
+    if not bool(text.strip()):
+        return "<no ocr>"
     return text
