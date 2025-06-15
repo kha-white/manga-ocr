@@ -111,7 +111,7 @@ class MangaDataset(Dataset):
 
         img = transform(image=img)["image"]
 
-        pixel_values = processor(img, return_tensors="pt").pixel_values
+        pixel_values = processor.feature_extractor(img, return_tensors="pt").pixel_values
         return pixel_values.squeeze()
 
     @staticmethod
@@ -132,7 +132,7 @@ class MangaDataset(Dataset):
                 A.Sharpen(p=0.2),
                 A.RandomBrightnessContrast(p=0.5),
                 A.GaussNoise((50, 200), p=0.3),
-                A.ImageCompression(0, 30, p=0.1),
+                A.ImageCompression(1, 30, p=0.1),
                 A.ToGray(always_apply=True),
             ]
         )
@@ -149,11 +149,11 @@ class MangaDataset(Dataset):
                     ],
                     p=0.1,
                 ),
-                A.Blur((4, 9), p=0.5),
+                A.Blur((3, 9), p=0.5),
                 A.Sharpen(p=0.5),
                 A.RandomBrightnessContrast(0.8, 0.8, p=1),
                 A.GaussNoise((1000, 10000), p=0.3),
-                A.ImageCompression(0, 10, p=0.5),
+                A.ImageCompression(1, 10, p=0.5),
                 A.ToGray(always_apply=True),
             ]
         )
