@@ -15,7 +15,9 @@ class MangaOcr:
     def __init__(self, pretrained_model_name_or_path="kha-white/manga-ocr-base", force_cpu=False):
         logger.info(f"Loading OCR model from {pretrained_model_name_or_path}")
         self.processor = ViTImageProcessor.from_pretrained(pretrained_model_name_or_path)
-        self.tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path)
+        # explicit tokenizer_type works around transformers>=5.13 misdetecting the tokenizer class
+        # for VisionEncoderDecoderModel configs and falling back to an incompatible fast-only backend
+        self.tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path, tokenizer_type="bert-japanese")
         self.model = MangaOcrModel.from_pretrained(pretrained_model_name_or_path)
 
         if not force_cpu and torch.cuda.is_available():

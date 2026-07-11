@@ -23,7 +23,7 @@ See also:
 
 # Installation
 
-You need Python 3.6 or newer. Please note, that the newest Python release might not be supported due to a PyTorch dependency, which often breaks with new Python releases and needs some time to catch up.
+You need Python 3.9 or newer. Please note, that the newest Python release might not be supported due to a PyTorch dependency, which often breaks with new Python releases and needs some time to catch up.
 Refer to [PyTorch website](https://pytorch.org/get-started/locally/) for a list of supported Python versions.
 
 Some users have reported problems with Python installed from Microsoft Store. If you see an error:
@@ -32,6 +32,21 @@ try installing Python from the [official site](https://www.python.org/downloads)
 
 If you want to run with GPU, install PyTorch as described [here](https://pytorch.org/get-started/locally/#start-locally),
 otherwise this step can be skipped.
+
+Install with pip:
+```commandline
+pip install manga-ocr
+```
+
+Or with [uv](https://docs.astral.sh/uv/):
+```commandline
+uv add manga-ocr
+```
+
+You can also run manga-ocr without installing it into your project, using `uvx`:
+```commandline
+uvx manga_ocr
+```
 
 ## Troubleshooting
 
