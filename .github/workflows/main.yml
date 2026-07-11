@@ -29,7 +29,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          uv venv
           uv pip install -e ".[dev]"
           uv pip install "${{ matrix.transformers-version == 'transformers' && 'transformers' || format('transformers=={0}', matrix.transformers-version) }}"
 
