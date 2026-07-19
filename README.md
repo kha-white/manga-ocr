@@ -114,6 +114,13 @@ The OCR is ready to use after `OCR ready` message appears in the logs.
 
 If `manga_ocr` doesn't work, you might also try replacing it with `python -m manga_ocr`.
 
+### Unix domain socket mode
+
+On Linux, if Manga OCR is launched with a path that begins with `@`, Manga OCR will listen for connections on that Unix domain socket path. A client is expected to connect, send a file in a normal image format, signal end-of-file, and then receive the OCR'd text. You can then connect to Manga OCR from a shell script like this (where `grim -g "$(slurp)" -` is used on Wayland to grab a screenshot of a user-selected screen region):
+```sh
+echo "OCR result: $(grim -g "$(slurp)" - | nc -NU /tmp/ocr.sock)"
+```
+
 ## Usage tips
 
 - OCR supports multi-line text, but the longer the text, the more likely some errors are to occur.

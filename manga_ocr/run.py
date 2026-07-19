@@ -1,3 +1,5 @@
+import io
+import socket
 import sys
 import time
 from pathlib import Path
@@ -106,7 +108,33 @@ def run(
                     process_and_write_results(mocr, img, write_to)
 
             time.sleep(delay_secs)
+    elif read_from[0] == '@':
+        # remove existing socket, if it exists - bind() fails if one already exists
+        try:
+            os.unlink(read_from[1:])
+        except FileNotFoundError as e:
+            pass
 
+        ssock = socket.socket(family=socket.AF_UNIX, type=socket.SOCK_STREAM)
+        ssock.bind(read_from[1:])
+        ssock.listen(1)
+        while True:
+            (sock, _) = ssock.accept()
+            data_in = sock.recv(1024*1024*32, socket.MSG_WAITALL)
+
+            try:
+                img = Image.open(io.BytesIO(data_in))
+                img.load()
+            except (UnidentifiedImageError, OSError) as e:
+                logger.warning(f"Error while reading file from socket message: {e}")
+            else:
+                t0 = time.time()
+                text = mocr(img)
+                t1 = time.time()
+                logger.info(f"Text recognized in {t1 - t0:0.03f} s: {text}")
+
+            sock.sendall(bytes(text, 'utf-8'))
+            sock.close()
     else:
         read_from = Path(read_from)
         if not read_from.is_dir():
