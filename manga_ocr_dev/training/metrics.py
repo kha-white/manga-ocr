@@ -1,10 +1,10 @@
 import numpy as np
-from datasets import load_metric
+import evaluate
 
 
 class Metrics:
     def __init__(self, processor):
-        self.cer_metric = load_metric("cer")
+        self.cer_metric = evaluate.load("cer")
         self.processor = processor
 
     def compute_metrics(self, pred):
@@ -12,9 +12,9 @@ class Metrics:
         pred_ids = pred.predictions
         print(label_ids.shape, pred_ids.shape)
 
-        pred_str = self.processor.batch_decode(pred_ids, skip_special_tokens=True)
+        pred_str = self.processor.tokenizer.batch_decode(pred_ids, skip_special_tokens=True)
         label_ids[label_ids == -100] = self.processor.tokenizer.pad_token_id
-        label_str = self.processor.batch_decode(label_ids, skip_special_tokens=True)
+        label_str = self.processor.tokenizer.batch_decode(label_ids, skip_special_tokens=True)
 
         pred_str = np.array(["".join(text.split()) for text in pred_str])
         label_str = np.array(["".join(text.split()) for text in label_str])

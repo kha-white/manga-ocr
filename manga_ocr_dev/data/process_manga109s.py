@@ -81,7 +81,7 @@ def export_crops():
     data["split"] = "train"
     data.loc[data.sample(len(data)).iloc[:n_test].index, "split"] = "test"
 
-    data["crop_path"] = str(crops_root) + "\\" + data.id + ".png"
+    data["crop_path"] = str(crops_root) + "/" + data.id + ".png"
 
     data.page_path = data.page_path.apply(lambda x: "/".join(Path(x).parts[-4:]))
     data.crop_path = data.crop_path.apply(lambda x: "/".join(Path(x).parts[-2:]))
