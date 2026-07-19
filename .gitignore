@@ -112,6 +112,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.hf-cache
 
 # Spyder project settings
 .spyderproject

@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jp-ocr-monitor"
+version = "0.1.0"
+description = "Clipboard OCR monitor for manga images"
+requires-python = ">=3.10"
+
+[project.scripts]
+manga-ocr-monitor = "jp_ocr_monitor.ocr:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+# Runtime Dependencies uses Nix propagatedBuildInputs
