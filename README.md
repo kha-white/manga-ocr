@@ -76,6 +76,37 @@ img = PIL.Image.open('/path/to/img')
 text = mocr(img)
 ```
 
+## Batched recognition
+
+`MangaOcr` can recognize many images in one call. `recognize()` preprocesses the images and decodes them in fixed-size batches; the batch size does not affect the result (it defaults to 128 crops on CUDA, 64 on MPS and 32 on CPU):
+
+```python
+from manga_ocr import MangaOcr
+
+mocr = MangaOcr()
+texts = mocr.recognize(["/path/to/crop1.jpg", "/path/to/crop2.jpg"], batch_size=32)
+```
+
+The preprocessing and decoding steps are also available separately, which is what bulk OCR drivers use to preprocess crops in worker processes and run the model only on the main device. Those worker processes can import `manga_ocr.preprocessing` without importing transformers, and the configuration below is a plain picklable dict:
+
+```python
+pixel_values = mocr.preprocess(images)  # float32 CPU tensor (N, 1, 224, 224)
+texts = mocr.recognize_preprocessed(pixel_values, batch_size=128)  # list of strings
+config = mocr.preprocess_config  # picklable dict for manga_ocr.preprocessing.preprocess_images
+```
+
+The crops are converted to their luma plane, resized once and expanded to the three model channels on the device. The result is bit-identical to the stock `ViTImageProcessor` output (checked with `torch.equal` against the processor of the installed transformers version) and takes a third of the resampling work and host-to-device bytes.
+
+Decoding uses a hand-rolled beam search that reproduces `model.generate()` for the model's own generation configuration (`num_beams=4`, `no_repeat_ngram_size=3`, `length_penalty=2.0`, early stopping) while avoiding most of the per-step Python overhead. Decoding settings that differ from the model configuration, for example `num_beams=1`, automatically fall back to `model.generate()`; keyword arguments are passed through:
+
+```python
+texts = mocr.recognize(images, num_beams=1)
+```
+
+## Half precision
+
+`MangaOcr(fp16=True)` runs the OCR model in half precision. On GPUs this is 1.6x faster on an RTX 4090 and 4.9x faster on an RX 9070 XT in the mokuro benchmark, but it is not exact: measured against fp32 on 140 volumes (2.52 M characters) it changes 0.19% of the characters on 26 pages per 1000. fp32 is the default and leaves the OCR text unchanged (the test set's expected results are the same as in the previous release). On CPU `fp16=True` logs a warning and stays in fp32. `MangaOcr(use_custom_beam=False)` disables the custom beam search and always uses `model.generate()`.
+
 ## Running in the background
 
 Manga OCR can run in the background and process new images as they appear.
